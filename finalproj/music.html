@@ -26,6 +26,10 @@
 			border: none;
 /*			frame-border: 0;*/
 		}
+		#search
+		{
+			background-color:lightpink;
+		}
 	</style>
 </head>
 <body> 
@@ -56,8 +60,41 @@
 			<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3oLe5ZILASG8vU5dxIMfLY?utm_source=generator" width="300" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 			<div class = "clearfloat"> </div>
 		</div>
-		<p> listen to one of my favorite playlist here: </p>
-		<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1xEKZqcZXLALGoFrczCkQA?utm_source=generator&theme=0" width="1350" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+		<div id = "playlist">
+			<p> listen to one of my favorite playlist here: </p>
+			<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1xEKZqcZXLALGoFrczCkQA?utm_source=generator&theme=0" width="1350" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+			<div class = "clearfloat"> </div>
+		</div>
+		<div id = "search">
+			<h1> HI </h1>
+			<script src="https://sdk.scdn.co/spotify-player.js"></script>
+			<script>
+  				window.onSpotifyWebPlaybackSDKReady = () => {
+    			const token = '7d4869d94a634a19a82f9dbd1e495edf';
+    			const player = new Spotify.Player({
+      				name: 'test',
+     				getOAuthToken: callback => { callback(token); },
+    			});
+
+    			//handling errors
+	    		player.addListener('initialization_error', ({ message }) => { console.error(message); });
+			   	player.addListener('authentication_error', ({ message }) => { console.error(message); });
+			    player.addListener('account_error', ({ message }) => { console.error(message); });
+			    player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+			    //update player status
+			    player.addListener('player_state_changed', state => { console.log(state); });
+
+			    player.addListener('ready', ({ device_id }) => {
+	      			console.log('Ready with Device ID', device_id);
+	    		});
+
+	    		// Connect to the player
+	    		player.connect();
+ 			};
+
+			</script>
+		</div>
 		<div class = "clearfloat"> </div>
 	</div>
 	<div id = "footer">
